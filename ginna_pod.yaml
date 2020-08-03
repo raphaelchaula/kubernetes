@@ -1,36 +1,36 @@
 # COMMANDS
 
-# kubectl apply -f nunu_pod.yaml
+# kubectl apply -f ginna_pod.yaml
 
 # kubectl get pods
 # kubectl get pods -o wide/json/yaml
 # kubectl get pods --show-labels
-# kubectl get pods --selector="application=nunu,environment=development"
+# kubectl get pods --selector="application=ginna,environment=development"
 
-# kubectl delete pods/nunu
-# kubectl delete -f nunu_pod.yaml
+# kubectl delete pods/ginna
+# kubectl delete -f ginna_pod.yaml
 
-# kubectl port-forward nunu 2406:2406
-# kubectl logs nunu (--previous)
-# kubectl logs nunu -f (streaming)
+# kubectl port-forward ginna 2312:2312
+# kubectl logs ginna (--previous)
+# kubectl logs ginna -f (streaming)
 
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nunupod
+  name: ginnapod
   labels:
-    application: nunu
+    application: ginna
     version: 1.0.0
     environment: development
   annotations:
-    url: "nunu.caashiere"
+    url: "ginna.caashiere"
 spec:
   containers:
-  - name: nunu
-    image: caashiere/nunu:latest
+  - name: ginna
+    image: caashiere/ginna:latest
     ports:
-      - containerPort: 2406
-        name: portnunu
+      - containerPort: 2312
+        name: portginna
         protocol: TCP
     resources:
       requests:
@@ -42,7 +42,7 @@ spec:
     readinessProbe:
       httpGet:
         path: /ready
-        port: 2406
+        port: 2312
       initialDelaySeconds: 0
       failureThreshold: 3
       successThreshold: 1
@@ -50,7 +50,7 @@ spec:
     livenessProbe:
       httpGet:
         path: /health
-        port: 2406
+        port: 2312
       initialDelaySeconds: 5
       failureThreshold: 3
       timeoutSeconds: 1

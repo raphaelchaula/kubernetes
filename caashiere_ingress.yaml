@@ -1,0 +1,44 @@
+# COMMANDS
+
+# kubectl apply -f caashiere_ingress.yaml
+
+# kubectl get ingress
+# kubectl get ingress -o wide/json/yaml
+# kubectl get ingress -o wide/json/yaml
+
+# kubectl describe ingress caashiereingress
+
+# kubectl delete ingress caashiereingress
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: caashiereingress
+spec:
+  # tls:
+  # - hosts:
+  #   - nunu.caashiere.com
+  #   secretName: nunusecret
+  rules:
+  - host: nunu.caashiere.com
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: nunuservice
+          servicePort: 2303
+      # - path: "/a/"
+      #   backend:
+      #     serviceName: nunuservice
+      #     servicePort: 2303
+  - host: ginna.caashiere.com
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: ginnaservice
+          servicePort: 2312
+      # - path: "/b/"
+      #   backend:
+      #     serviceName: nunuservice
+      #     servicePort: 2303

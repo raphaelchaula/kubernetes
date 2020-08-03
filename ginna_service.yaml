@@ -1,6 +1,6 @@
 # COMMANDS
 
-# kubectl apply -f nunu_service.yaml
+# kubectl apply -f ginna_service.yaml
 
 # kubectl get services
 # kubectl get services -o wide/json/yaml
@@ -8,20 +8,20 @@
 
 # kubectl get services --watch
 # kubectl get endpoints --watch
-# kubectl get services nunuservice --watch
-# kubectl get endpoints nunuservice --watch
+# kubectl get services ginnaservice --watch
+# kubectl get endpoints ginnaservice --watch
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: nunuservice
+  name: ginnaservice
   labels:
-    application: nunu
+    application: ginna
 spec:
   selector:
-    application: nunu
+    application: ginna
   type: ClusterIP
   ports:
     - protocol: TCP
-      port: 2303
-      targetPort: 2406
+      port: 2312
+      targetPort: 2312
