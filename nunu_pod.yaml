@@ -1,0 +1,57 @@
+# COMMANDS
+
+# kubectl apply -f nunu_pod.yaml
+
+# kubectl get pods
+# kubectl get pods -o wide/json/yaml
+# kubectl get pods --show-labels
+# kubectl get pods --selector="application=nunuwelcome,environment=development"
+
+# kubectl delete pods/nunu
+# kubectl delete -f nunu_pod.yaml
+
+# kubectl port-forward nunu 2406:2406
+# kubectl logs nunu (--previous)
+# kubectl logs nunu -f (streaming)
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nunupod
+  labels:
+    application: nunuwelcome
+    version: 1.0.0
+    environment: development
+  annotations:
+    url: "nunu.welcome"
+spec:
+  containers:
+  - name: nunu
+    image: caashiere/nunu:latest
+    ports:
+      - containerPort: 2406
+        name: portnunu
+        protocol: TCP
+    resources:
+      requests:
+        cpu: "500m" # 0.5 CPU
+        memory: "128Mi" # 128 MB
+      limits:
+        cpu: "1000m" # 1.0 CPU
+        memory: "256Mi" # 256 MB
+    readinessProbe:
+      httpGet:
+        path: /ready
+        port: 2406
+      initialDelaySeconds: 0
+      failureThreshold: 3
+      successThreshold: 1
+      periodSeconds: 2
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 2406
+      initialDelaySeconds: 5
+      failureThreshold: 3
+      timeoutSeconds: 1
+      periodSeconds: 10

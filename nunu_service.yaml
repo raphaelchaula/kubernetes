@@ -1,0 +1,27 @@
+# COMMANDS
+
+# kubectl apply -f nunu_service.yaml
+
+# kubectl get services
+# kubectl get services -o wide/json/yaml
+# kubectl get endpoints -o wide/json/yaml
+
+# kubectl get services --watch
+# kubectl get endpoints --watch
+# kubectl get services nunuservice --watch
+# kubectl get endpoints nunuservice --watch
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nunuservice
+  labels:
+    application: nunuwelcome
+spec:
+  selector:
+    application: nunuwelcome
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 2303
+      targetPort: 2406

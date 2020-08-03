@@ -1,0 +1,33 @@
+# COMMANDS
+
+# kubectl apply -f nunu_ingress.yaml
+
+# kubectl get ingress
+# kubectl get ingress -o wide/json/yaml
+# kubectl get ingress -o wide/json/yaml
+
+# kubectl describe ingress peramihoingress
+
+# kubectl delete ingress peramihoingress
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: peramihoingress
+spec:
+  # tls:
+  # - hosts:
+  #   - nunu.peramiho.com
+  #   secretName: nunusecret
+  rules:
+  - host: nunu.peramiho.com
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: nunuservice
+          servicePort: 2303
+      # - path: "/a/"
+      #   backend:
+      #     serviceName: nunuservice
+      #     servicePort: 2303
