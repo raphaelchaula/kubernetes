@@ -20,7 +20,7 @@ metadata:
   name: ginnapod
   labels:
     application: ginna
-    version: 1.0.0
+    version: v1.0.0
     environment: development
   annotations:
     url: "ginna.caashiere"

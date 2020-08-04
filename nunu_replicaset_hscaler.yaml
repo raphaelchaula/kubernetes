@@ -1,0 +1,15 @@
+# Commands
+
+# kubectl get hpa
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nunu-replica-hscaler
+spec:
+  scaleTargetRef:
+    kind: ReplicaSet
+    name: nunu-replica
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 80
