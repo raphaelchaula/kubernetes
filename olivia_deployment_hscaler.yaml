@@ -1,16 +1,16 @@
-# Commands
+# COMMANDS
 
 # kubectl get hpa
 
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: nunu-replica-hscaler
+  name: olivia-deployment-hscaler
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: ReplicaSet
-    name: nunu-replica
-  minReplicas: 2
-  maxReplicas: 8
+    kind: Deployment
+    name: olivia-deployment
+  minReplicas: 3
+  maxReplicas: 9
   targetCPUUtilizationPercentage: 80

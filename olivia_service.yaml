@@ -1,0 +1,29 @@
+# COMMANDS
+
+# kubectl apply -f olivia_service.yaml
+
+# kubectl get services
+# kubectl get services -o wide/json/yaml
+# kubectl get endpoints -o wide/json/yaml
+
+# kubectl get services --watch
+# kubectl get endpoints --watch
+# kubectl get services olivia-service --watch
+# kubectl get endpoints olivia-service --watch
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: olivia-service
+  labels:
+    env: dev
+    app: olivia
+    version: v1
+spec:
+  selector:
+    app: olivia
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 2512
+      targetPort: 2512

@@ -1,0 +1,81 @@
+# COMMANDS
+
+# kubectl apply -f olivia_deployment.yaml
+
+# kubectl get deployments
+# kubectl get replicasets --selector=app=olivia
+# kubectl scale deployments olivia-deployment --replicas=2
+
+# kubectl get replicasets -o wide
+
+# kubectl rollout pause deployments olivia-deployment
+# kubectl rollout resume deployments olivia-deployment
+
+# kubectl rollout status deployments olivia-deployment
+# kubectl rollout history deployment olivia-deployment
+# kubectl rollout history deployment olivia-deployment --revision=<number>
+
+# kubectl rollout undo deployments olivia-deployment
+# kubectl rollout undo deployments olivia-deployment --to-revision=<number>
+
+# kubectl delete -f olivia_deployment.yaml
+# kubectl delete deployments olivia-deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: olivia-deployment
+  labels:
+    env: dev
+    app: olivia
+    version: v1
+spec:
+  replicas: 3
+  revisionHistoryLimit: 14
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: olivia
+  template:
+    metadata:
+      labels:
+        env: dev
+        app: olivia
+      annotations:
+        url: "olivia.caashiere"
+        kubernetes.io/change-cause: "Add olivia:v3"
+    spec:
+      containers:
+      - name: olivia
+        image: caashiere/olivia:v3
+        ports:
+          - containerPort: 2512
+            name: portolivia
+            protocol: TCP
+        resources:
+          requests:
+            cpu: "500m" # 0.5 CPU
+            memory: "128Mi" # 128 MB
+          limits:
+            cpu: "1000m" # 1.0 CPU
+            memory: "256Mi" # 256 MB
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 2512
+          initialDelaySeconds: 0
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 2512
+          initialDelaySeconds: 5
+          failureThreshold: 3
+          timeoutSeconds: 1
+          periodSeconds: 10

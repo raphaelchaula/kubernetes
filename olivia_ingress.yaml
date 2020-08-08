@@ -1,0 +1,29 @@
+# COMMANDS
+
+# kubectl apply -f olivia_ingress.yaml
+
+# kubectl delete ingress olivia-ingress
+
+# kubectl get ingress
+# kubectl get ingress -o wide/json/yaml
+# kubectl get ingress -o wide/json/yaml
+
+# kubectl describe ingress olivia-ingress
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: olivia-ingress
+spec:
+  rules:
+  - host: olivia.caashiere.com
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: olivia-service
+          servicePort: 2512
+      # - path: "/a/"
+      #   backend:
+      #     serviceName: olivia-service
+      #     servicePort: 2512
